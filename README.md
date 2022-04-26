@@ -1,6 +1,6 @@
 # logseq-plugin-heading-level-shortcuts
 
-[![Github All Releases](https://img.shields.io/github/downloads/vipzhicheng/logseq-plugin-heading-level-shortcuts/total.svg)](https://github.com/vipzhicheng-starter/logseq-plugin-heading-level-shortcuts/releases)
+[![Github All Releases](https://img.shields.io/github/downloads/vipzhicheng/logseq-plugin-heading-level-shortcuts/total.svg)](https://github.com/vipzhicheng/logseq-plugin-heading-level-shortcuts/releases)
 
 This is a very tiny plugin for Logseq to bind `cmd+0` ~ `cmd+6` to change heading levels.
 
