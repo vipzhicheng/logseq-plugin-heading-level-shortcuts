@@ -53,34 +53,65 @@ async function setLevel(level: number) {
   //   headingSign = '*';
   // }
 
+  const config = await logseq.App.getUserConfigs();
+
   const selected = await logseq.Editor.getSelectedBlocks();
   if (selected && selected.length > 1) {
     for (let block of selected) {
-      let content = regex.test(block.content)
-        ? block.content.replace(regex, '')
-        : block.content;
-      if (level > 0) {
-        await logseq.Editor.updateBlock(
-          block.uuid,
-          repeat(headingSign, level) + ' ' + content
-        );
+      if (config.preferredFormat === 'org') {
+        if (block?.uuid) {
+          if (level === 1) {
+            await logseq.Editor.upsertBlockProperty(
+              block.uuid,
+              'heading',
+              true
+            );
+          } else if (level === 0) {
+            await logseq.Editor.upsertBlockProperty(
+              block.uuid,
+              'heading',
+              false
+            );
+          }
+        }
       } else {
-        await logseq.Editor.updateBlock(block.uuid, content);
+        let content = regex.test(block.content)
+          ? block.content.replace(regex, '')
+          : block.content;
+        if (level > 0) {
+          await logseq.Editor.updateBlock(
+            block.uuid,
+            repeat(headingSign, level) + ' ' + content
+          );
+        } else {
+          await logseq.Editor.updateBlock(block.uuid, content);
+        }
       }
     }
   } else {
     const block = await logseq.Editor.getCurrentBlock();
-    if (block?.uuid) {
-      let content = regex.test(block.content)
-        ? block.content.replace(regex, '')
-        : block.content;
-      if (level > 0) {
-        await logseq.Editor.updateBlock(
-          block.uuid,
-          repeat(headingSign, level) + ' ' + content
-        );
-      } else {
-        await logseq.Editor.updateBlock(block.uuid, content);
+
+    if (config.preferredFormat === 'org') {
+      if (block?.uuid) {
+        if (level === 1) {
+          await logseq.Editor.upsertBlockProperty(block.uuid, 'heading', true);
+        } else if (level === 0) {
+          await logseq.Editor.upsertBlockProperty(block.uuid, 'heading', false);
+        }
+      }
+    } else {
+      if (block?.uuid) {
+        let content = regex.test(block.content)
+          ? block.content.replace(regex, '')
+          : block.content;
+        if (level > 0) {
+          await logseq.Editor.updateBlock(
+            block.uuid,
+            repeat(headingSign, level) + ' ' + content
+          );
+        } else {
+          await logseq.Editor.updateBlock(block.uuid, content);
+        }
       }
     }
   }

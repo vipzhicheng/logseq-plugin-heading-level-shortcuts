@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.0.4
+
+- feat: partly support org format
+
 ## v0.0.3
 
 - feat: add settings file support.
