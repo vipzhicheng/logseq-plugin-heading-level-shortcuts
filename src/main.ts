@@ -93,9 +93,9 @@ async function setLevel(level: number) {
 
     if (config.preferredFormat === 'org') {
       if (block?.uuid) {
-        if (level === 1) {
-          await logseq.Editor.upsertBlockProperty(block.uuid, 'heading', true);
-        } else if (level === 0) {
+        if (level > 0) {
+          await logseq.Editor.upsertBlockProperty(block.uuid, 'heading', level);
+        } else {
           await logseq.Editor.upsertBlockProperty(block.uuid, 'heading', false);
         }
       }
