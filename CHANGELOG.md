@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.0.6
+
+- fix: adjust README
+
 ## v0.0.5
 
 - feat: full support org format heading based on Logseq v0.8.9
